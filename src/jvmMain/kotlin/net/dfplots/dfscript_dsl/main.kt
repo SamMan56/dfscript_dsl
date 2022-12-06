@@ -2,14 +2,14 @@ package net.dfplots.dfscript_dsl
 
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import net.dfplots.dfscript_dsl.dsl.Script
+import net.dfplots.dfscript_dsl.dsl.ScriptBuilder
 
 fun main() {
     println(cool_script())
 }
 
-fun script(build: Script.() -> Unit): String {
-    val builder = Script()
+fun script(build: ScriptBuilder.() -> Unit): String {
+    val builder = ScriptBuilder()
     builder.build()
-    return Json.encodeToString(builder)
+    return Json.encodeToString(builder.toSerializable())
 }

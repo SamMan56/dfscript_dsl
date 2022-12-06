@@ -1,4 +1,4 @@
-package net.dfplots.dfscript_dsl.dsl
+package net.dfplots.dfscript_dsl.json
 
 import kotlinx.serialization.Serializable
 
