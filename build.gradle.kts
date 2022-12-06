@@ -1,5 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.7.20"
+    kotlin("multiplatform") version "1.7.21"
+    kotlin("plugin.serialization") version "1.7.21"
 }
 
 group = "net.dfplots"
@@ -20,7 +21,11 @@ kotlin {
         }
     }
     sourceSets {
-        val jvmMain by getting
+        val jvmMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+            }
+        }
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
