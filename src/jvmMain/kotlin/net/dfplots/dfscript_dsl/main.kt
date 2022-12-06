@@ -1,4 +1,5 @@
 package net.dfplots.dfscript_dsl
 
-class main {
+fun main() {
+    println("hello, world!")
 }
