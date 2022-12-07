@@ -3,8 +3,8 @@ package net.dfplots.dfscript_dsl.json
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Script(
-    var actions: List<ActionOrEvent>,
+data class JsonScript(
+    var actions: List<JsonActionOrEvent>,
     val config: List<Int>,
     val description: String,
     val disabled: Boolean,
