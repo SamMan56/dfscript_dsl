@@ -3,8 +3,10 @@ package net.dfplots.dfscript_dsl.json
 import kotlinx.serialization.Serializable
 
 @Serializable
-abstract class BaseAction(val type: String)
+sealed class ActionOrEvent(val type: String)
 
-data class EventAction(val event: String) : BaseAction("event")
+@Serializable
+data class Event(val event: String) : ActionOrEvent("event")
 
-data class Action(val action: String) : BaseAction("action")
+@Serializable
+data class Action(val action: String, val arguments: List<Int>) : ActionOrEvent("action")

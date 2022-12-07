@@ -11,5 +11,6 @@ fun main() {
 fun script(build: ScriptBuilder.() -> Unit): String {
     val builder = ScriptBuilder()
     builder.build()
-    return Json.encodeToString(builder.toSerializable())
+    val format = Json { prettyPrint = true; classDiscriminator = "class" }
+    return format.encodeToString(builder.toSerializable())
 }
