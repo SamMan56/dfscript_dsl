@@ -1,9 +1,6 @@
 package net.dfplots.dfscript_dsl.dsl
 
-import net.dfplots.dfscript_dsl.json.JsonNumberValue
-import net.dfplots.dfscript_dsl.json.JsonTextValue
-import net.dfplots.dfscript_dsl.json.JsonValue
-import net.dfplots.dfscript_dsl.json.JsonVariableValue
+import net.dfplots.dfscript_dsl.json.*
 
 sealed class Value<T: ValueType> {
     abstract fun toSerializable(): JsonValue
@@ -21,6 +18,12 @@ class NumberValue(val value: Double) : Value<NumberType>() {
 class VariableValue<T: ValueType>(val name: String) : Value<T>() {
     override fun toSerializable(): JsonVariableValue {
         return JsonVariableValue(name)
+    }
+}
+
+class ClientValue<T: ValueType>(val name: String) : Value<T>() {
+    override fun toSerializable(): JsonClientValue {
+        return JsonClientValue(name)
     }
 }
 
