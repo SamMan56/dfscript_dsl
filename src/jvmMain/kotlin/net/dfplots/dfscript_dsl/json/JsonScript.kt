@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class JsonScript(
     var actions: List<JsonActionOrEvent>,
-    val config: List<Int>,
+    val config: List<JsonConfigPrototype>,
     val description: String,
     val disabled: Boolean,
     val name: String,

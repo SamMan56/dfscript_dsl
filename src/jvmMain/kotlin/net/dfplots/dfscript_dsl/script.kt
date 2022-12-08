@@ -8,9 +8,11 @@ import net.dfplots.dfscript_dsl.dsl.receivedMessage
 fun cool_script(): String {
     return script {
         val variable = VariableValue<TextType>("variable")
+        val range = intConfigValue("name", 0)
+        val message = textConfigValue("message", "")
 
         sendChat {
-            display_chat(TextValue("some"), variable, receivedMessage())
+            display_chat(TextValue("some"), variable, receivedMessage(), message)
         }
     }
 }

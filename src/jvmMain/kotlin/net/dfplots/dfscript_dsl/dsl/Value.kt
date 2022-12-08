@@ -21,6 +21,13 @@ class VariableValue<T: ValueType>(val name: String) : Value<T>() {
     }
 }
 
+class ConfigValue<T: ValueType>(val name: String) : Value<T>() {
+    override fun toSerializable(): JsonConfigValue {
+        return JsonConfigValue(name)
+    }
+
+}
+
 class ClientValue<T: ValueType>(val name: String) : Value<T>() {
     override fun toSerializable(): JsonClientValue {
         return JsonClientValue(name)
