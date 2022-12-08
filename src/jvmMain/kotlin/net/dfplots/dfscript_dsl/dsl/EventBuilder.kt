@@ -14,6 +14,10 @@ data class EventBuilder (
         actions += JsonAction("DISPLAY_CHAT", texts.map { it.toSerializable() })
     }
 
+    fun increment(variable: VariableValue<NumberType>) {
+        actions += JsonAction("INCREMENT", listOf(variable.toSerializable()))
+    }
+
     fun toSerializable(): List<JsonActionOrEvent> {
         // an event is really just an action - create a new list headed by this
         val allActions = listOf(JsonEvent(name)) + actions
