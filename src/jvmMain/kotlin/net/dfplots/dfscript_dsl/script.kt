@@ -10,6 +10,7 @@ fun cool_script(): String {
         sendChat {
             val testVar = literalVariable("testVar", textLiteral("Hello"))
             val listVar = listVariable("listVar", textLiteral("Hello"), textLiteral("world"))
+            val dictVar = dictionaryVariable("dictVar", textLiteral("Hello") to numberLiteral(3))
             display_chat(TextValue("some"), testVar, receivedMessage(), message)
         }
     }

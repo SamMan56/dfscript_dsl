@@ -31,3 +31,18 @@ fun <T: ValueType> EventBuilder.appendValue(list: VariableValue<ListType<T>>, va
 fun <T: ValueType> EventBuilder.setVariable(variable: VariableValue<T>, value: Value<T>) {
     add_action("SET_VARIABLE", variable.toSerializable(), value.toSerializable())
 }
+
+//
+// dictionaries
+//
+fun <K: ValueType, V: ValueType> EventBuilder.createDictionary(
+    variable: VariableValue<DictionaryType<K, V>>
+) {
+    add_action("CREATE_DICT", variable.toSerializable())
+}
+
+fun <K: ValueType, V: ValueType> EventBuilder.setDictionaryValue(
+    variable: VariableValue<DictionaryType<K, V>>, key: Value<K>, value: Value<V>,
+) {
+    add_action("SET_DICT_VALUE", variable.toSerializable(), key.toSerializable(), value.toSerializable())
+}

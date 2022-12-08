@@ -41,4 +41,4 @@ object TextType : ValueType()
 object NumberType : ValueType()
 // will try single typed lists - i don't think there are any particular requirements otherwise
 class ListType<T: ValueType> : ValueType()
-class DictType<K: ValueType, V: ValueType> : ValueType()
+class DictionaryType<K: ValueType, V: ValueType> : ValueType()
