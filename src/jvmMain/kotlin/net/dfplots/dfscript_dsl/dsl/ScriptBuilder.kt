@@ -5,7 +5,7 @@ import net.dfplots.dfscript_dsl.json.JsonConfigPrototype
 import net.dfplots.dfscript_dsl.json.JsonScript
 
 @ScriptMarker
-data class ScriptBuilder(
+class ScriptBuilder(
     var events: List<EventBuilder> = listOf(),
     var configPrototypes: List<JsonConfigPrototype> = listOf()
 )  {

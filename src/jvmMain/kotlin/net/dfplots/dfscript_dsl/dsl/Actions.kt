@@ -3,12 +3,12 @@ package net.dfplots.dfscript_dsl.dsl
 import net.dfplots.dfscript_dsl.json.JsonAction
 import net.dfplots.dfscript_dsl.json.JsonValue
 
-private fun EventBuilder.add_action(name: String, vararg jsonArguments: JsonValue) {
+fun EventBuilder.add_action(name: String, vararg jsonArguments: JsonValue) {
     actions += JsonAction(name, jsonArguments.toList())
 }
 
 // quick utility function to avoid type nonsense & cleaner
-private fun <T: ValueType> Array<out Value<T>>.toSerializable(): Array<JsonValue> {
+fun <T: ValueType> Array<out Value<T>>.toSerializable(): Array<JsonValue> {
     return map { it.toSerializable() }.toTypedArray()
 }
 

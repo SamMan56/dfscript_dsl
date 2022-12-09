@@ -5,7 +5,7 @@ import net.dfplots.dfscript_dsl.json.JsonActionOrEvent
 import net.dfplots.dfscript_dsl.json.JsonEvent
 
 @ScriptMarker
-data class EventBuilder (
+class EventBuilder (
     val name: String,
     var actions: List<JsonActionOrEvent> = listOf()
 ) {

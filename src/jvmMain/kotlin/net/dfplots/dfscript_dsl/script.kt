@@ -4,13 +4,16 @@ import net.dfplots.dfscript_dsl.dsl.*
 
 fun cool_script(): String {
     return script {
-        val message = textConfigValue("message", "")
-
         onOverlay {
-            val testVar = variable("testVar", text("Hello"))
-            val listVar = list("listVar", text("Hello"), text("world"))
-            val dictVar = dictionary("dictVar", text("Hello") to number(3))
-            display_chat(TextValue("some"), testVar, receivedMessage(), message)
+            `if` { equals(text("a"), text("b")) }.then {
+                display_chat(text("1"))
+            }.`else` {
+                `if` { equals(text("c"), text("d")) }.then {
+                    display_chat(text("2"))
+                }.`else` {
+                    display_chat(text("3"))
+                }
+            }
         }
     }
 }
