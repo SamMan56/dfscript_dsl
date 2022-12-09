@@ -3,7 +3,7 @@ package net.dfplots.dfscript_dsl.dsl
 fun EventBuilder.`if`(build: ConditionalBuilder.() -> Unit): ConditionalResult {
     val conditionalBuilder = ConditionalBuilder(this)
     conditionalBuilder.build()
-    return ConditionalResult(this)
+    return ConditionalResult(this, 0)
 }
 
 /**
@@ -13,41 +13,59 @@ class ConditionalBuilder(val eventBuilder: EventBuilder) {
     // unfortunately, this cannot check if types are equal at compile time
     // since it will automatically assume anytype equality if unspecified
     fun<T: ValueType> equals(x: Value<T>, y: Value<T>) {
-        eventBuilder.add_action("IF_EQUALS", x.toSerializable(), y.toSerializable())
+        eventBuilder.addAction("IF_EQUALS", x.toSerializable(), y.toSerializable())
     }
 
     /**
      * Checks if a text contains a value.
      */
     fun textContains(text: Value<TextType>, subtext: Value<TextType>) {
-        eventBuilder.add_action("IF_TEXT_CONTAINS", text.toSerializable(), subtext.toSerializable())
+        eventBuilder.addAction("IF_TEXT_CONTAINS", text.toSerializable(), subtext.toSerializable())
     }
 }
 
-class ConditionalResult(val eventBuilder: EventBuilder) {
+class ConditionalResult(val eventBuilder: EventBuilder, val depth: Int) {
     fun then(build: EventBuilder.() -> Unit): ConditionalThenResult {
         eventBuilder.build()
-        eventBuilder.add_action("CLOSE_BRACKET")
-        return ConditionalThenResult(eventBuilder)
+        // add as many brackets that are needed to close
+        // there will be 1 plus extra for depth
+        eventBuilder.addAction("CLOSE_BRACKET")
+        (1..depth).forEach { _ -> eventBuilder.addAction("CLOSE_BRACKET") }
+
+        return ConditionalThenResult(eventBuilder, depth)
     }
 }
 
-class ConditionalThenResult(val eventBuilder: EventBuilder) {
-    // i couldnt find a clean implementation for this due to the way its structured right now
-    // ie else_if only has a condition but needs to add a bracket far later
-//    fun else_if(build: ConditionalBuilder.() -> Unit): ConditionalResult {
-//        // add else
-//        // condition code gen
-//        // condition inner
-//        // close bracket
-//        eventBuilder.add_action("ELSE")
-//        eventBuilder.`if`(buildbuild)
-//        return ConditionalResult(eventBuilder)
-//    }
+class ConditionalThenResult(val eventBuilder: EventBuilder, val depth: Int) {
+    // on an else if, its now known this is NOT the end of iteration
+    fun else_if(build: ConditionalBuilder.() -> Unit): ConditionalResult {
+        // add else
+        // condition code gen
+        // condition inner
+        // close bracket
+
+        // its not the nicest idea however the issue is that the final then (or else) needs to print enough code brackets
+        // i couldnt find a way to have the compiler run particular code depending on whether this IS the last condition in the block
+        // so, a then will ALWAYS print enough brackets as if it is the final condition
+        // if its not (like now), just remove all the unneeded brackets
+        eventBuilder.popActions(depth)
+        // this will now append to the last if
+        eventBuilder.addAction("ELSE")
+        eventBuilder.`if`(build)
+
+        // now further down
+        return ConditionalResult(eventBuilder, depth + 1)
+    }
 
     fun `else`(build: EventBuilder.() -> Unit) {
-        eventBuilder.add_action("ELSE")
+        // remove unneeded brackets
+        eventBuilder.popActions(depth)
+
+        eventBuilder.addAction("ELSE")
         eventBuilder.build()
-        eventBuilder.add_action("CLOSE_BRACKET")
+        // add enough to finish
+        // these will not be removed
+        eventBuilder.addAction("CLOSE_BRACKET")
+        (1..depth).forEach { _ -> eventBuilder.addAction("CLOSE_BRACKET") }
     }
 }
