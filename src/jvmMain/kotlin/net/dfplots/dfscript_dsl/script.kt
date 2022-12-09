@@ -4,10 +4,9 @@ import net.dfplots.dfscript_dsl.dsl.*
 
 fun cool_script(): String {
     return script {
-        val range = intConfigValue("name", 0)
         val message = textConfigValue("message", "")
 
-        sendChat {
+        onOverlay {
             val testVar = variable("testVar", text("Hello"))
             val listVar = list("listVar", text("Hello"), text("world"))
             val dictVar = dictionary("dictVar", text("Hello") to number(3))
