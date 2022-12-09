@@ -8,9 +8,9 @@ fun cool_script(): String {
         val message = textConfigValue("message", "")
 
         sendChat {
-            val testVar = literalVariable("testVar", textLiteral("Hello"))
-            val listVar = listVariable("listVar", textLiteral("Hello"), textLiteral("world"))
-            val dictVar = dictionaryVariable("dictVar", textLiteral("Hello") to numberLiteral(3))
+            val testVar = variable("testVar", text("Hello"))
+            val listVar = list("listVar", text("Hello"), text("world"))
+            val dictVar = dictionary("dictVar", text("Hello") to number(3))
             display_chat(TextValue("some"), testVar, receivedMessage(), message)
         }
     }
