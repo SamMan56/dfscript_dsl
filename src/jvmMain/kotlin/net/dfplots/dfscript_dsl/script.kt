@@ -4,15 +4,18 @@ import net.dfplots.dfscript_dsl.dsl.*
 
 fun cool_script(): String {
     return script {
-        onOverlay {
-            `if` { equals(text("a"), text("b")) }.then {
-                display_chat(text("1"))
-            }.`else` {
-                `if` { equals(text("c"), text("d")) }.then {
-                    display_chat(text("2"))
-                }.`else` {
-                    display_chat(text("3"))
-                }
+        onReceiveChat {
+            val nextMsg = variable<NumberType>("nextMsg")
+            `if` { equals(nextMsg, number(1)) }.then {
+                val split = list<TextType>("split")
+                splitTextByRegex(split, receivedMessage(), text(","))
+                val len = variable<NumberType>("len")
+                listLength(len, split)
+                display_chat(text("Ignored Player Count:"), len)
+                setVariable(nextMsg, number(0))
+            }
+            `if` { textContains(receivedMessage(), text("Current ignored players:")) }.then {
+                setVariable(nextMsg, number(1))
             }
         }
     }

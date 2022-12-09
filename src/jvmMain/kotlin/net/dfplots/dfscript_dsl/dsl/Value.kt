@@ -2,7 +2,7 @@ package net.dfplots.dfscript_dsl.dsl
 
 import net.dfplots.dfscript_dsl.json.*
 
-sealed class Value<T: ValueType> {
+sealed class Value<out T: ValueType> {
     abstract fun toSerializable(): JsonValue
 }
 
@@ -42,6 +42,7 @@ class VariableValue<T: ValueType>(val name: String) : Value<T>() {
 }
 
 sealed class ValueType
+typealias AnyType = ValueType // more clear
 object TextType : ValueType()
 object NumberType : ValueType()
 // will try single typed lists - i don't think there are any particular requirements otherwise

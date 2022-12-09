@@ -27,6 +27,10 @@ fun <T: ValueType> EventBuilder.variable(name: String, value: LiteralValue<T>): 
     return variable
 }
 
+fun <T: ValueType> EventBuilder.variable(name: String): VariableValue<T> {
+    return VariableValue(name)
+}
+
 fun<T : ValueType> EventBuilder.list(name: String, vararg items: Value<T>): VariableValue<ListType<T>> {
     val listVariable = VariableValue<ListType<T>>(name)
     createList(listVariable)

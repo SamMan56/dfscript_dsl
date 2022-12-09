@@ -12,14 +12,50 @@ fun <T: ValueType> Array<out Value<T>>.toSerializable(): Array<JsonValue> {
     return map { it.toSerializable() }.toTypedArray()
 }
 
-fun EventBuilder.display_chat(vararg texts: Value<TextType>) {
+//
+// visuals
+//
+fun EventBuilder.display_chat(vararg texts: Value<AnyType>) {
     add_action("DISPLAY_CHAT", *texts.toSerializable())
 }
 
+fun EventBuilder.splitTextByRegex(
+    variable: VariableValue<ListType<TextType>>,
+    text: Value<TextType>,
+    separatorRegex: Value<TextType>
+) {
+    add_action("REGEX_SPLIT_TEXT", variable.toSerializable(), text.toSerializable(), separatorRegex.toSerializable())
+}
+
+//
+// texts
+//
+fun EventBuilder.replaceTextUsingRegex(
+    variable: VariableValue<TextType>,
+    textToChange: Value<TextType>,
+    regex: Value<TextType>,
+    replacement: Value<TextType>
+) {
+    add_action("REGEX_REPLACE_TEXT", variable.toSerializable(), textToChange.toSerializable(), regex.toSerializable(), replacement.toSerializable())
+}
+
+//
+// variables
+//
+fun <T: ValueType> EventBuilder.setVariable(variable: VariableValue<T>, value: Value<T>) {
+    add_action("SET_VARIABLE", variable.toSerializable(), value.toSerializable())
+}
+
+//
+// numbers
+//
 fun EventBuilder.increment(variable: VariableValue<NumberType>) {
     add_action("INCREMENT", variable.toSerializable())
 }
 
+//
+// lists
+//
 fun <T: ValueType> EventBuilder.createList(variable: VariableValue<ListType<T>>) {
     add_action("CREATE_LIST", variable.toSerializable())
 }
@@ -28,8 +64,8 @@ fun <T: ValueType> EventBuilder.appendValue(list: VariableValue<ListType<T>>, va
     add_action("APPEND_VALUE", list.toSerializable(), *values.toSerializable())
 }
 
-fun <T: ValueType> EventBuilder.setVariable(variable: VariableValue<T>, value: Value<T>) {
-    add_action("SET_VARIABLE", variable.toSerializable(), value.toSerializable())
+fun <T: ValueType> EventBuilder.listLength(variable: VariableValue<NumberType>, list: VariableValue<ListType<T>>) {
+    add_action("LIST_LENGTH", variable.toSerializable(), list.toSerializable())
 }
 
 //

@@ -10,8 +10,17 @@ fun EventBuilder.`if`(build: ConditionalBuilder.() -> Unit): ConditionalResult {
  * this is a seperate dsl layer to keep if var conditions away from normal conditions
  */
 class ConditionalBuilder(val eventBuilder: EventBuilder) {
+    // unfortunately, this cannot check if types are equal at compile time
+    // since it will automatically assume anytype equality if unspecified
     fun<T: ValueType> equals(x: Value<T>, y: Value<T>) {
         eventBuilder.add_action("IF_EQUALS", x.toSerializable(), y.toSerializable())
+    }
+
+    /**
+     * Checks if a text contains a value.
+     */
+    fun textContains(text: Value<TextType>, subtext: Value<TextType>) {
+        eventBuilder.add_action("IF_TEXT_CONTAINS", text.toSerializable(), subtext.toSerializable())
     }
 }
 
