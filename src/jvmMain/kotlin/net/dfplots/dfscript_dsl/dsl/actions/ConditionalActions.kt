@@ -1,6 +1,10 @@
-package net.dfplots.dfscript_dsl.dsl
+package net.dfplots.dfscript_dsl.dsl.actions
 
 import net.dfplots.dfscript_dsl.ScriptMarker
+import net.dfplots.dfscript_dsl.dsl.EventBuilder
+import net.dfplots.dfscript_dsl.dsl.TextType
+import net.dfplots.dfscript_dsl.dsl.Value
+import net.dfplots.dfscript_dsl.dsl.ValueType
 
 fun EventBuilder.`if`(build: ConditionalBuilder.() -> Unit): ConditionalResult {
     val conditionalBuilder = ConditionalBuilder(this)

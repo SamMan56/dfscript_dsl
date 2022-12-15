@@ -1,4 +1,6 @@
-package net.dfplots.dfscript_dsl.dsl
+package net.dfplots.dfscript_dsl.dsl.actions
+
+import net.dfplots.dfscript_dsl.dsl.*
 
 private fun EventBuilder.addActionWithChildren(name: String, vararg arguments: Value<AnyType>, build: EventBuilder.() -> Unit) {
     addAction(name, *arguments)
@@ -17,7 +19,7 @@ fun <T: ValueType> EventBuilder.forEachInList(variable: VariableValue<T>, list: 
 fun <K: ValueType, V: ValueType> EventBuilder.forEachInDictionary(
     key: VariableValue<K>,
     value: VariableValue<V>,
-    dict: Value<DictionaryType<K,V>>,
+    dict: Value<DictionaryType<K, V>>,
     build: EventBuilder.() -> Unit
 ) {
     addActionWithChildren("DICT_FOR_EACH", key, value, dict, build=build)

@@ -1,5 +1,7 @@
 package net.dfplots.dfscript_dsl.dsl
 
+import net.dfplots.dfscript_dsl.dsl.actions.*
+
 
 // a couple of these are not really necessary but like a uniform way to get values
 fun text(value: String): TextValue {

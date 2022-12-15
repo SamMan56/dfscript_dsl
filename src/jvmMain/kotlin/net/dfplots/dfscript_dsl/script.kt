@@ -1,6 +1,7 @@
 package net.dfplots.dfscript_dsl
 
 import net.dfplots.dfscript_dsl.dsl.*
+import net.dfplots.dfscript_dsl.dsl.actions.*
 
 fun cool_script(): String {
     return script {
