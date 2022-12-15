@@ -2,8 +2,19 @@ package net.dfplots.dfscript_dsl.dsl
 
 import net.dfplots.dfscript_dsl.json.*
 
-sealed class Value<out T: ValueType> {
+abstract class Value<out T: ValueType> {
     abstract fun toSerializable(): JsonValue
+
+    /**
+     * Any var type may be represented as text
+     */
+    fun asText(): Value<TextType> {
+        return object: Value<TextType>() {
+            override fun toSerializable(): JsonValue {
+                return this@Value.toSerializable()
+            }
+        }
+    }
 }
 
 // defining a variable requires a literal to be inputted

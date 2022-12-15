@@ -3,12 +3,19 @@ package net.dfplots.dfscript_dsl.dsl
 //
 // visuals
 //
-fun EventBuilder.displayChat(vararg texts: Value<AnyType>) {
+fun EventBuilder.displayChat(vararg texts: Value<TextType>) {
     addAction("DISPLAY_CHAT", *texts)
 }
 
-fun EventBuilder.actionBar(vararg texts: Value<AnyType>) {
+fun EventBuilder.actionBar(vararg texts: Value<TextType>) {
     addAction("ACTIONBAR", *texts)
+}
+
+/**
+ * Makes the player send a chat message.
+ */
+fun EventBuilder.sendChat(vararg texts: Value<TextType>) {
+    addAction("SEND_CHAT", *texts)
 }
 
 //
@@ -43,6 +50,20 @@ fun <T: ValueType> EventBuilder.setVariable(variable: VariableValue<T>, value: V
 //
 fun EventBuilder.increment(variable: VariableValue<NumberType>) {
     addAction("INCREMENT", variable)
+}
+
+/**
+ * Decrements a variable by a value.
+ */
+fun EventBuilder.decrement(variable: VariableValue<NumberType>) {
+    addAction("DECREMENT", variable)
+}
+
+/**
+ * Joins multiple texts into one.
+ */
+fun EventBuilder.joinText(variable: VariableValue<TextType>) {
+    addAction("JOIN_TEXT", variable)
 }
 
 //
