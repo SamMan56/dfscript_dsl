@@ -9,6 +9,13 @@ fun EventBuilder.`if`(build: ConditionalBuilder.() -> Unit): ConditionalResult {
 }
 
 /**
+ * Should never be used in scripts, will be added automatically
+ */
+fun EventBuilder.closeBracket() {
+    addAction("CLOSE_BRACKET")
+}
+
+/**
  * this is a seperate dsl layer to keep if var conditions away from normal conditions
  */
 @ScriptMarker
@@ -32,8 +39,8 @@ class ConditionalResult(val eventBuilder: EventBuilder, val depth: Int) {
         eventBuilder.build()
         // add as many brackets that are needed to close
         // there will be 1 plus extra for depth
-        eventBuilder.addAction("CLOSE_BRACKET")
-        (1..depth).forEach { _ -> eventBuilder.addAction("CLOSE_BRACKET") }
+        eventBuilder.closeBracket()
+        (1..depth).forEach { _ -> eventBuilder.closeBracket() }
 
         return ConditionalThenResult(eventBuilder, depth)
     }
@@ -68,7 +75,7 @@ class ConditionalThenResult(val eventBuilder: EventBuilder, val depth: Int) {
         eventBuilder.build()
         // add enough to finish
         // these will not be removed
-        eventBuilder.addAction("CLOSE_BRACKET")
-        (1..depth).forEach { _ -> eventBuilder.addAction("CLOSE_BRACKET") }
+        eventBuilder.closeBracket()
+        (1..depth).forEach { _ -> eventBuilder.closeBracket() }
     }
 }
