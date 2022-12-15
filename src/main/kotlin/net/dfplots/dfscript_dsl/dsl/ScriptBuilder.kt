@@ -1,10 +1,9 @@
 package net.dfplots.dfscript_dsl.dsl
 
-import net.dfplots.dfscript_dsl.ScriptMarker
 import net.dfplots.dfscript_dsl.json.JsonConfigPrototype
 import net.dfplots.dfscript_dsl.json.JsonScript
 
-@ScriptMarker
+@DFScriptDSL
 class ScriptBuilder(
     var events: List<EventBuilder> = listOf(),
     var configPrototypes: List<JsonConfigPrototype> = listOf()

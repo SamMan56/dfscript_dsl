@@ -1,10 +1,6 @@
 package net.dfplots.dfscript_dsl.dsl.actions
 
-import net.dfplots.dfscript_dsl.ScriptMarker
-import net.dfplots.dfscript_dsl.dsl.EventBuilder
-import net.dfplots.dfscript_dsl.dsl.TextType
-import net.dfplots.dfscript_dsl.dsl.Value
-import net.dfplots.dfscript_dsl.dsl.ValueType
+import net.dfplots.dfscript_dsl.dsl.*
 
 fun EventBuilder.`if`(build: ConditionalBuilder.() -> Unit): ConditionalResult {
     val conditionalBuilder = ConditionalBuilder(this)
@@ -22,7 +18,7 @@ fun EventBuilder.closeBracket() {
 /**
  * this is a seperate dsl layer to keep if var conditions away from normal conditions
  */
-@ScriptMarker
+@DFScriptDSL
 class ConditionalBuilder(val eventBuilder: EventBuilder) {
     // unfortunately, this cannot check if types are equal at compile time
     // since it will automatically assume anytype equality if unspecified

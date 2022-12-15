@@ -1,11 +1,13 @@
 package net.dfplots.dfscript_dsl.dsl
 
-import net.dfplots.dfscript_dsl.ScriptMarker
 import net.dfplots.dfscript_dsl.json.JsonAction
 import net.dfplots.dfscript_dsl.json.JsonActionOrEvent
 import net.dfplots.dfscript_dsl.json.JsonEvent
 
-@ScriptMarker
+@DslMarker
+annotation class DFScriptDSL
+
+@DFScriptDSL
 class EventBuilder (
     val name: String,
     val actions: MutableList<JsonActionOrEvent> = mutableListOf()
