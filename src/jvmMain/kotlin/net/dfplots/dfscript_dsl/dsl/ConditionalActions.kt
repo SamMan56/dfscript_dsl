@@ -23,14 +23,14 @@ class ConditionalBuilder(val eventBuilder: EventBuilder) {
     // unfortunately, this cannot check if types are equal at compile time
     // since it will automatically assume anytype equality if unspecified
     fun<T: ValueType> equals(x: Value<T>, y: Value<T>) {
-        eventBuilder.addAction("IF_EQUALS", x.toSerializable(), y.toSerializable())
+        eventBuilder.addAction("IF_EQUALS", x, y)
     }
 
     /**
      * Checks if a text contains a value.
      */
     fun textContains(text: Value<TextType>, subtext: Value<TextType>) {
-        eventBuilder.addAction("IF_TEXT_CONTAINS", text.toSerializable(), subtext.toSerializable())
+        eventBuilder.addAction("IF_TEXT_CONTAINS", text, subtext)
     }
 }
 

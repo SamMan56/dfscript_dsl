@@ -4,7 +4,6 @@ import net.dfplots.dfscript_dsl.ScriptMarker
 import net.dfplots.dfscript_dsl.json.JsonAction
 import net.dfplots.dfscript_dsl.json.JsonActionOrEvent
 import net.dfplots.dfscript_dsl.json.JsonEvent
-import net.dfplots.dfscript_dsl.json.JsonValue
 
 @ScriptMarker
 class EventBuilder (
@@ -16,8 +15,8 @@ class EventBuilder (
         return listOf(JsonEvent(name)) + actions
     }
 
-    fun addAction(name: String, vararg jsonArguments: JsonValue) {
-        actions += JsonAction(name, jsonArguments.toList())
+    fun addAction(name: String, vararg arguments: Value<AnyType>) {
+        actions += JsonAction(name, arguments.map { it.toSerializable() })
     }
 
     fun popActions(amount: Int) {
