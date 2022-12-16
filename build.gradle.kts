@@ -15,7 +15,6 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-//    implementation("com.github.samman56:dfscript_dsl:main-SNAPSHOT")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
