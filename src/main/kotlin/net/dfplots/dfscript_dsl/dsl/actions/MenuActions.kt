@@ -2,14 +2,14 @@ package net.dfplots.dfscript_dsl.dsl.actions
 
 import net.dfplots.dfscript_dsl.dsl.*
 
-fun EventBuilder.openMenu(width: Value<NumberType>, height: Value<NumberType>) {
+fun ActionReceiver.openMenu(width: Value<NumberType>, height: Value<NumberType>) {
     addAction("OPEN_MENU", width, height)
 }
 
 /**
  * Adds a button to an open custom menu.
  */
-fun EventBuilder.addMenuButton(
+fun ActionReceiver.addMenuButton(
     x: Value<NumberType>,
     y: Value<NumberType>,
     width: Value<NumberType>,
@@ -24,7 +24,7 @@ fun EventBuilder.addMenuButton(
 /**
  * Adds text to an open custom menu.
  */
-fun EventBuilder.addMenuText(
+fun ActionReceiver.addMenuText(
     x: Value<NumberType>,
     y: Value<NumberType>,
     text: Value<TextType>,
@@ -37,7 +37,7 @@ fun EventBuilder.addMenuText(
 /**
  * Adds a text field to an open custom menu.
  */
-fun EventBuilder.addMenuTextField(
+fun ActionReceiver.addMenuTextField(
     x: Value<NumberType>,
     y: Value<NumberType>,
     width: Value<NumberType>,
@@ -50,21 +50,21 @@ fun EventBuilder.addMenuTextField(
 /**
  * Removes an element from an open custom menu.
  */
-fun EventBuilder.removeMenuElement(identifier: Value<TextType>) {
+fun ActionReceiver.removeMenuElement(identifier: Value<TextType>) {
     addAction("REMOVE_MENU_ELEMENT", identifier)
 }
 
 /**
  * Gets the text inside a text field in an open custom menu.
  */
-fun EventBuilder.getMenuTextFieldValue(result: VariableValue<TextType>, identifier: Value<TextType>) {
+fun ActionReceiver.getMenuTextFieldValue(result: VariableValue<TextType>, identifier: Value<TextType>) {
     addAction("GET_MENU_TEXT_FIELD_VALUE", result, identifier)
 }
 
 /**
  * Gets the text inside a text field in an open custom menu.
  */
-fun EventBuilder.setMenuTextFieldValue(identifier: Value<TextType>, value: Value<TextType>) {
+fun ActionReceiver.setMenuTextFieldValue(identifier: Value<TextType>, value: Value<TextType>) {
     addAction("SET_MENU_TEXT_FIELD_VALUE", identifier, value)
 }
 

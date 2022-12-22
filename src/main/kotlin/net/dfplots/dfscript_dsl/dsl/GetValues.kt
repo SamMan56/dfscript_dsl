@@ -23,24 +23,24 @@ fun number(value: Double): NumberValue {
  * This is since DFScript does not have list or dictionary literals.
  * Thus, they are always variables.
  */
-fun <T: ValueType> EventBuilder.variable(name: String, value: LiteralValue<T>): VariableValue<T> {
+fun <T: ValueType> ActionReceiver.variable(name: String, value: LiteralValue<T>): VariableValue<T> {
     val variable = VariableValue<T>(name)
     setVariable(variable, value)
     return variable
 }
 
-fun <T: ValueType> EventBuilder.variable(name: String): VariableValue<T> {
+fun <T: ValueType> ActionReceiver.variable(name: String): VariableValue<T> {
     return VariableValue(name)
 }
 
-fun<T : ValueType> EventBuilder.list(name: String, vararg items: Value<T>): VariableValue<ListType<T>> {
+fun<T : ValueType> ActionReceiver.list(name: String, vararg items: Value<T>): VariableValue<ListType<T>> {
     val listVariable = VariableValue<ListType<T>>(name)
     createList(listVariable)
     appendValue(listVariable, *items)
     return listVariable
 }
 
-fun<K: ValueType, V: ValueType> EventBuilder.dictionary(name: String, vararg valuePairs: Pair<Value<K>, Value<V>>) {
+fun<K: ValueType, V: ValueType> ActionReceiver.dictionary(name: String, vararg valuePairs: Pair<Value<K>, Value<V>>) {
     val dictionaryVariable = VariableValue<DictionaryType<K, V>>(name)
     createDictionary(dictionaryVariable)
     for (valuePair in valuePairs) {
