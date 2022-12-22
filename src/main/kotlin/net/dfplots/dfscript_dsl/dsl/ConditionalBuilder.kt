@@ -1,8 +1,6 @@
 package net.dfplots.dfscript_dsl.dsl
 
-import net.dfplots.dfscript_dsl.json.JsonActionOrEvent
-
-fun ActionReceiver.`if`(build: ConditionalBuilder.() -> Unit): ConditionalStarter {
+fun ActionReceiver.`if`(build: ConditionalBuilder.() -> Double): ConditionalStarter {
     val conditionalBuilder = ConditionalBuilder(this)
     conditionalBuilder.build()
     val conditionalBlock = ConditionalBlock()
@@ -12,15 +10,11 @@ fun ActionReceiver.`if`(build: ConditionalBuilder.() -> Unit): ConditionalStarte
 }
 
 @DFScriptDSL
-class ConditionalBuilder(val actionReceiver: ActionReceiver): Block {
-    override fun toSerializable(): List<JsonActionOrEvent> {
-        TODO("Not yet implemented")
-    }
-}
+class ConditionalBuilder(val actionReceiver: ActionReceiver)
 
 class InnerConditionalBuilder(
-    val block: ConditionalBlock,
-    var isInMainBranch: Boolean = true
+    private val block: ConditionalBlock,
+    private var isInMainBranch: Boolean = true
 ) : ActionReceiver {
     override fun addAction(name: String, vararg arguments: Value<AnyType>) {
         addBlock(ActionBlock(name, *arguments))
@@ -38,14 +32,14 @@ class InnerConditionalBuilder(
     }
 }
 
-class ConditionalStarter(val builder: InnerConditionalBuilder) {
+class ConditionalStarter(private val builder: InnerConditionalBuilder) {
     fun then(build: InnerConditionalBuilder.() -> Unit): ConditionalResult {
         builder.build()
         return ConditionalResult(builder)
     }
 }
 
-class ConditionalResult(val builder: InnerConditionalBuilder) {
+class ConditionalResult(private val builder: InnerConditionalBuilder) {
     fun else_if(build: ConditionalBuilder.() -> Unit): ConditionalStarter {
         builder.swapBranch()
         val conditionalBuilder = ConditionalBuilder(builder)
