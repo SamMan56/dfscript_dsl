@@ -7,12 +7,12 @@ import net.dfplots.dfscript_dsl.json.JsonScript
 
 @DFScriptDSL
 class ScriptBuilder(
-    var events: List<BuilderBlock> = listOf(),
+    var events: List<EventBuilder> = listOf(),
     var configPrototypes: List<JsonConfigPrototype> = listOf()
-)  {
+) {
     fun toSerializable(): JsonScript {
         return JsonScript(
-            events.flatMap { it.toSerializable() },
+            events.flatMap { it.actions }.flatMap { it.toSerializable() },
             configPrototypes,
             "DSL Script",
             false,

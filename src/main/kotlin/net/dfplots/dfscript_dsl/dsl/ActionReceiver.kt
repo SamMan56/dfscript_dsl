@@ -5,7 +5,7 @@ annotation class DFScriptDSL
 
 @DFScriptDSL
 interface ActionReceiver {
-    fun addBlock(block: BuilderBlock)
+    fun addBlock(block: Block)
 
     fun addAction(name: String, vararg arguments: Value<AnyType>) {
         addBlock(ActionBlock(name, *arguments))

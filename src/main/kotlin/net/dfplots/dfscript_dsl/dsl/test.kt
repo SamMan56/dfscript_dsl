@@ -4,17 +4,15 @@ import net.dfplots.dfscript_dsl.dsl.actions.displayChat
 import net.dfplots.dfscript_dsl.dsl.actions.equals
 
 fun main() {
-    val builder = ScriptBuilder()
-
-    builder.onBuildMode {
-        `if` { equals(text("a"), text("b")) }.then {
-            displayChat(text("a"))
-        }.else_if { equals(text("c"), text("d")) }.then {
-            displayChat(text("b"))
-        }.`else` {
-            displayChat(text("c"))
+    script {
+        onBuildMode {
+            `if` { equals(number(3), text("e")) }.then {
+                displayChat(text("true"))
+            }.else_if { equals(text("e"), number(3)) }.then {
+                displayChat(text("maybe"))
+            }.`else` {
+                displayChat(text("false"))
+            }
         }
     }
-
-    println("done")
 }

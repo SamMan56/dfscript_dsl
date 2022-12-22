@@ -12,7 +12,7 @@ fun ActionReceiver.`if`(build: ConditionalBuilder.() -> Unit): ConditionalStarte
 }
 
 @DFScriptDSL
-class ConditionalBuilder(val actionReceiver: ActionReceiver): BuilderBlock {
+class ConditionalBuilder(val actionReceiver: ActionReceiver): Block {
     override fun toSerializable(): List<JsonActionOrEvent> {
         TODO("Not yet implemented")
     }
@@ -26,7 +26,7 @@ class InnerConditionalBuilder(
         addBlock(ActionBlock(name, *arguments))
     }
 
-    override fun addBlock(block: BuilderBlock) {
+    override fun addBlock(block: Block) {
         if (isInMainBranch)
             this.block.mainBranch += block
         else
