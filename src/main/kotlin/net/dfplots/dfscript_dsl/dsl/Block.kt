@@ -35,3 +35,18 @@ class ActionBlock(val name: String, vararg val arguments: Value<AnyType>) : Bloc
         return listOf(JsonAction(name, arguments.map { it.toSerializable() }))
     }
 }
+
+class FlipBlock(
+    val name: String,
+    val otherName: String,
+    vararg val arguments: Value<AnyType>,
+    var flipped: Boolean = false
+): Block {
+    fun not() {
+        flipped = true
+    }
+
+    override fun toSerializable(): List<JsonActionOrEvent> {
+        return listOf(JsonAction(if (!flipped) name else otherName, arguments.map { it.toSerializable() }))
+    }
+}
