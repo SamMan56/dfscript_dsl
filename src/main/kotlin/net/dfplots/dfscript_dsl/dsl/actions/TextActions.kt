@@ -98,3 +98,11 @@ fun ActionReceiver.stripColor(result: VariableValue<TextType>, text: Value<TextT
 fun ActionReceiver.repeatText(result: VariableValue<TextType>, textToRepeat: Value<TextType>, timesToRepeat: Value<NumberType>) {
     addAction("REPEAT_TEXT", result, textToRepeat, timesToRepeat)
 }
+
+/**
+ * Checks if a text contains a value.
+ */
+fun ConditionalBuilder.textContains(text: Value<TextType>, subtext: Value<TextType>): NonNullableCondition {
+    actionReceiver.addAction("IF_TEXT_CONTAINS", text, subtext)
+    return NonNullableCondition(innerBuilder)
+}

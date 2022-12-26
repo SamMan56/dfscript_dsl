@@ -10,4 +10,8 @@ interface ActionReceiver {
     fun addAction(name: String, vararg arguments: Value<AnyType>) {
         addBlock(ActionBlock(name, *arguments))
     }
+
+    fun closeBracket() {
+        addAction("CLOSE_BRACKET")
+    }
 }
