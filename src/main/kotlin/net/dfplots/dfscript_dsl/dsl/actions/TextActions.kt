@@ -102,7 +102,20 @@ fun ActionReceiver.repeatText(result: VariableValue<TextType>, textToRepeat: Val
 /**
  * Checks if a text contains a value.
  */
-fun ConditionalBuilder.textContains(text: Value<TextType>, subtext: Value<TextType>): NonNullableCondition {
-    actionReceiver.addAction("IF_TEXT_CONTAINS", text, subtext)
-    return NonNullableCondition(innerBuilder)
+fun ConditionalBuilder.textContains(text: Value<TextType>, subtext: Value<TextType>): Condition {
+    return addNullable("IF_TEXT_CONTAINS", "IF_TEXT_DOESNT_CONTAIN", text, subtext)
+}
+
+/**
+ * Checks if a text matches a regex.
+ */
+fun ConditionalBuilder.textMatchesRegex(text: Value<TextType>, regex: Value<TextType>): Condition {
+    return addNullable("IF_MATCHES_REGEX", "IF_DOESNT_MATCH_REGEX", text, regex)
+}
+
+/**
+ * Checks if a text starts with another.
+ */
+fun ConditionalBuilder.textStartsWith(text: Value<TextType>, subtext: Value<TextType>): Condition {
+    return addNullable("IF_STARTS_WITH", "IF_DOESNT_START_WITH", text, subtext)
 }

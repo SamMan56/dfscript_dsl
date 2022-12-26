@@ -12,17 +12,13 @@ fun <T: ValueType> ActionReceiver.setVariable(variable: VariableValue<T>, value:
 /**
  * Checks if one value is equal to another.
  */
-fun<T: ValueType> ConditionalBuilder.equals(x: Value<T>, y: Value<T>): NullableCondition {
-    val flipBlock = FlipBlock("IF_EQUALS", "IF_NOT_EQUALS", x, y)
-    actionReceiver.addBlock(flipBlock)
-    return NullableCondition(flipBlock)
+fun<T: ValueType> ConditionalBuilder.equals(x: Value<T>, y: Value<T>): Condition {
+    return addNullable("IF_EQUALS", "IF_NOT_EQUALS", x, y)
 }
 
 /**
  * Checks if one value is not equal to another.
  */
-fun<T: ValueType> ConditionalBuilder.notEquals(x: Value<T>, y: Value<T>): NullableCondition {
-    val flipBlock = FlipBlock("IF_NOT_EQUALS", "IF_EQUALS", x, y)
-    actionReceiver.addBlock(flipBlock)
-    return NullableCondition(flipBlock)
+fun<T: ValueType> ConditionalBuilder.notEquals(x: Value<T>, y: Value<T>): Condition {
+    return addNullable("IF_NOT_EQUALS", "IF_EQUALS", x, y)
 }

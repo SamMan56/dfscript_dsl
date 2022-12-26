@@ -64,3 +64,17 @@ fun ActionReceiver.readFile(result: VariableValue<TextType>, filename: Value<Tex
 fun ActionReceiver.writeFile(filename: Value<TextType>, content: Value<AnyType>) {
     addAction("WRITE_FILE", filename, content)
 }
+
+/**
+ * Executes if a gui is open.
+ */
+fun ConditionalBuilder.guiOpen(): Condition {
+    return addNullable("IF_GUI_OPEN", "IF_GUI_CLOSED")
+}
+
+/**
+ * Executes if the specified file exists.
+ */
+fun ConditionalBuilder.fileExists(filename: Value<TextType>): Condition {
+    return addNullable("IF_FILE_EXISTS", "IF_FILE_DOESNT_EXIST")
+}

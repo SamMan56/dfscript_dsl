@@ -90,3 +90,38 @@ fun ActionReceiver.randomInt(result: VariableValue<NumberType>, min: Value<Numbe
 fun ActionReceiver.randomDouble(result: VariableValue<NumberType>, min: Value<NumberType>, max: Value<NumberType>) {
     addAction("RANDOM_DOUBLE", result, min, max)
 }
+
+/**
+ * Checks if one number is greater than another.
+ */
+fun ConditionalBuilder.greaterThan(x: Value<NumberType>, y: Value<NumberType>): Condition {
+    return addNullable("IF_GREATER", "IF_LESS_EQUALS", x, y)
+}
+
+/**
+ * Checks if one number is greater than or equal to another.
+ */
+fun ConditionalBuilder.greaterThanOrEqualTo(x: Value<NumberType>, y: Value<NumberType>): Condition {
+    return addNullable("IF_GREATER_EQUAL", "IF_LESS", x, y)
+}
+
+/**
+ * Checks if one number is less than another.
+ */
+fun ConditionalBuilder.lessThan(x: Value<NumberType>, y: Value<NumberType>): Condition {
+    return addNullable("IF_LESS", "IF_GREATER_EQUALS", x, y)
+}
+
+/**
+ * Checks if one number is less than or equal to another.
+ */
+fun ConditionalBuilder.lessThanOrEqualTo(x: Value<NumberType>, y: Value<NumberType>): Condition {
+    return addNullable("IF_LESS_EQUAL", "IF_GREATER", x, y)
+}
+
+/**
+ * Checks if a number is between 2 different numbers (inclusive).
+ */
+fun ConditionalBuilder.withinRange(value: Value<NumberType>, minimum: Value<NumberType>, maximum: Value<NumberType>): Condition {
+    return addNullable("IF_WITHIN_RANGE", "IF_NOT_WITHIN_RANGE", value, minimum, maximum)
+}

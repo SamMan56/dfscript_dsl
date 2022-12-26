@@ -1,31 +1,27 @@
 package net.dfplots.dfscript_dsl.dsl
 
 fun ActionReceiver.`if`(build: ConditionalBuilder.() -> Condition): ConditionalStarter {
+    val conditionalBuilder = ConditionalBuilder(this)
+    conditionalBuilder.build()
     val conditionalBlock = ConditionalBlock()
     val innerBuilder = InnerConditionalBuilder(conditionalBlock)
-    val conditionalBuilder = ConditionalBuilder(this, innerBuilder)
-    conditionalBuilder.build()
     addBlock(conditionalBlock)
     return ConditionalStarter(innerBuilder)
 }
 
 @DFScriptDSL
-class ConditionalBuilder(val actionReceiver: ActionReceiver, val innerBuilder: InnerConditionalBuilder)
-
-sealed class Condition {
-    abstract operator fun not(): Condition
-}
-class NullableCondition(val flipBlock: FlipBlock) : Condition() {
-    override fun not(): NullableCondition {
-        flipBlock.flipped = !flipBlock.flipped
-        return NullableCondition(flipBlock)
+class ConditionalBuilder(val actionReceiver: ActionReceiver) {
+    fun addNullable(name: String, otherName: String, vararg value: Value<AnyType>): Condition {
+        val flipBlock = FlipBlock(name, otherName, *value)
+        actionReceiver.addBlock(flipBlock)
+        return Condition(flipBlock)
     }
 }
 
-class NonNullableCondition(val innerBuilder: InnerConditionalBuilder) : Condition() {
-    override fun not(): NonNullableCondition {
-        innerBuilder.isInMainBranch = !innerBuilder.isInMainBranch
-        return NonNullableCondition(innerBuilder)
+class Condition(val flipBlock: FlipBlock) {
+    operator fun not(): Condition {
+        flipBlock.flipped = !flipBlock.flipped
+        return Condition(flipBlock)
     }
 }
 
@@ -59,10 +55,10 @@ class ConditionalStarter(private val builder: InnerConditionalBuilder) {
 class ConditionalResult(private val builder: InnerConditionalBuilder) {
     fun else_if(build: ConditionalBuilder.() -> Condition): ConditionalStarter {
         builder.swapBranch()
+        val conditionalBuilder = ConditionalBuilder(builder)
+        conditionalBuilder.build()
         val conditionalBlock = ConditionalBlock()
         val innerBuilder = InnerConditionalBuilder(conditionalBlock)
-        val conditionalBuilder = ConditionalBuilder(builder, innerBuilder)
-        conditionalBuilder.build()
         builder.addBlock(conditionalBlock)
         return ConditionalStarter(innerBuilder)
     }

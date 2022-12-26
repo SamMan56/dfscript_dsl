@@ -55,3 +55,10 @@ fun <K: ValueType, V: ValueType> ActionReceiver.getDictionaryKeys(result: Variab
 fun <K: ValueType, V: ValueType> ActionReceiver.removeDictionaryEntry(dictionary: VariableValue<DictionaryType<K,V>>, key: Value<K>) {
     addAction("REMOVE_DICT_ENTRY", dictionary, key)
 }
+
+/**
+ * Checks if a key exists in a dictionary.
+ */
+fun <K: ValueType, V: ValueType> ConditionalBuilder.dictionaryKeyExists(dictionary: Value<DictionaryType<K, V>>, key: Value<K>): Condition {
+    return addNullable("IF_DICT_KEY_EXISTS", "IF_DICT_KEY_DOESNT_EXIST", dictionary, key)
+}

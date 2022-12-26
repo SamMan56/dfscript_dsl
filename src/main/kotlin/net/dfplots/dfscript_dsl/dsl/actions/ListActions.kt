@@ -73,3 +73,10 @@ fun <T: ValueType> ActionReceiver.joinListToText(result: VariableValue<TextType>
 fun <T: ValueType> ActionReceiver.sortList(result: VariableValue<ListType<T>>, list: Value<ListType<T>>) {
     addAction("SORT_LIST", result, list)
 }
+
+/**
+ * Checks if a list contains a value.
+ */
+fun <T: ValueType> ConditionalBuilder.listContains(list: Value<ListType<T>>, value: Value<T>): Condition {
+    return addNullable("IF_LIST_CONTAINS", "IF_LIST_DOESNT_CONTAIN", list, value)
+}
