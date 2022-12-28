@@ -50,6 +50,6 @@ fun<K: ValueType, V: ValueType> ActionReceiver.dictionary(variableName: String, 
     return dictionaryVariable
 }
 
-fun ActionReceiver.item(variableName: String, id: String): VariableValue<DictionaryType<TextType, AnyType>> {
+fun ActionReceiver.item(variableName: String, id: String): VariableValue<ItemType> {
     return dictionary(variableName, Pair(text("id"), text(id)))
 }
