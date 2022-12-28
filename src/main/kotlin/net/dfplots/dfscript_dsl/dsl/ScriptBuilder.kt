@@ -7,7 +7,7 @@ import net.dfplots.dfscript_dsl.json.JsonScript
 
 @DFScriptDSL
 class ScriptBuilder(
-    var events: List<EventBuilder> = listOf(),
+    var events: List<EventBuilder<BaseEvent>> = listOf(),
     var configPrototypes: List<JsonConfigPrototype> = listOf()
 ) {
     fun toSerializable(): JsonScript {
