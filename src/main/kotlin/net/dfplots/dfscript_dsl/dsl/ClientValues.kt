@@ -4,6 +4,12 @@ package net.dfplots.dfscript_dsl.dsl
 
 fun EventBuilder<BaseEvent>.timestamp(): ClientValue<NumberType> = ClientValue("TIMESTAMP")
 fun EventBuilder<BaseEvent>.clipboard(): ClientValue<NumberType> = ClientValue("CLIPBOARD")
+fun EventBuilder<BaseEvent>.mainHandItem(): ClientValue<ItemType> = ClientValue("MAIN_HAND_ITEM")
+fun EventBuilder<BaseEvent>.offHandItem(): ClientValue<ItemType> = ClientValue("OFF_HAND_ITEM")
+fun EventBuilder<BaseEvent>.fullInventory(): ClientValue<ListType<ItemType>> = ClientValue("FULL_INVENTORY")
+fun EventBuilder<BaseEvent>.mainInventory(): ClientValue<ListType<ItemType>> = ClientValue("MAIN_INVENTORY")
+fun EventBuilder<BaseEvent>.armor(): ClientValue<ListType<ItemType>> = ClientValue("ARMOR")
+fun EventBuilder<BaseEvent>.hotbarItems(): ClientValue<ListType<ItemType>> = ClientValue("HOTBAR_ITEMS")
 fun EventBuilder<BaseEvent>.selectedSlot(): ClientValue<NumberType> = ClientValue("SELECTED_SLOT")
 fun EventBuilder<BaseEvent>.gameMode(): ClientValue<TextType> = ClientValue("GAME_MODE")
 fun EventBuilder<BaseEvent>.windowWidth(): ClientValue<NumberType> = ClientValue("WINDOW_WIDTH")

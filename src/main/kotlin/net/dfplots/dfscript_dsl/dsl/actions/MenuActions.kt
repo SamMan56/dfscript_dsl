@@ -20,6 +20,18 @@ fun ActionReceiver.addMenuButton(
     addAction("ADD_MENU_BUTTON", x, y, width, height, text, identifier)
 }
 
+/**
+ * Adds an item to an open custom menu.
+ */
+fun ActionReceiver.addMenuItem(
+    x: Value<NumberType>,
+    y: Value<NumberType>,
+    item: Value<ItemType>,
+    identifier: Value<TextType>
+) {
+    addAction("ADD_MENU_ITEM", x, y, item, identifier)
+}
+
 
 /**
  * Adds text to an open custom menu.

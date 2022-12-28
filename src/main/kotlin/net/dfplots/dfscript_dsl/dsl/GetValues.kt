@@ -33,17 +33,23 @@ fun <T: ValueType> ActionReceiver.variable(name: String): VariableValue<T> {
     return VariableValue(name)
 }
 
-fun<T : ValueType> ActionReceiver.list(name: String, vararg items: Value<T>): VariableValue<ListType<T>> {
-    val listVariable = VariableValue<ListType<T>>(name)
+fun<T : ValueType> ActionReceiver.list(variableName: String, vararg items: Value<T>): VariableValue<ListType<T>> {
+    val listVariable = VariableValue<ListType<T>>(variableName)
     createList(listVariable)
     appendValue(listVariable, *items)
     return listVariable
 }
 
-fun<K: ValueType, V: ValueType> ActionReceiver.dictionary(name: String, vararg valuePairs: Pair<Value<K>, Value<V>>) {
-    val dictionaryVariable = VariableValue<DictionaryType<K, V>>(name)
+fun<K: ValueType, V: ValueType> ActionReceiver.dictionary(variableName: String, vararg valuePairs: Pair<Value<K>, Value<V>>)
+: VariableValue<DictionaryType<K, V>> {
+    val dictionaryVariable = VariableValue<DictionaryType<K, V>>(variableName)
     createDictionary(dictionaryVariable)
     for (valuePair in valuePairs) {
         setDictionaryValue(dictionaryVariable, valuePair.first, valuePair.second)
     }
+    return dictionaryVariable
+}
+
+fun ActionReceiver.item(variableName: String, id: String): VariableValue<DictionaryType<TextType, AnyType>> {
+    return dictionary(variableName, Pair(text("id"), text(id)))
 }

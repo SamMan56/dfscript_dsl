@@ -58,4 +58,5 @@ object TextType : ValueType()
 object NumberType : ValueType()
 // will try single typed lists - i don't think there are any particular requirements otherwise
 class ListType<T: ValueType> : ValueType()
-class DictionaryType<K: ValueType, V: ValueType> : ValueType()
+open class DictionaryType<K: ValueType, V: ValueType> : ValueType()
+class ItemType : DictionaryType<TextType, AnyType>()
