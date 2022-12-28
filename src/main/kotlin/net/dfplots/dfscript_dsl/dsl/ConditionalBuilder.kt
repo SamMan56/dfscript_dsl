@@ -27,7 +27,7 @@ class Condition(val flipBlock: FlipBlock) {
 
 class InnerConditionalBuilder(
     private val block: ConditionalBlock,
-    var isInMainBranch: Boolean = true
+    private var isInMainBranch: Boolean = true
 ) : ActionReceiver {
     override fun addAction(name: String, vararg arguments: Value<AnyType>) {
         addBlock(ActionBlock(name, *arguments))
