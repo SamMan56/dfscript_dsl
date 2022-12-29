@@ -56,7 +56,7 @@ fun <T: ValueType> ActionReceiver.removeListValue(list: VariableValue<ListType<T
 /**
  * Returns the length of a list.
  */
-fun <T: ValueType> ActionReceiver.listLength(variable: VariableValue<NumberType>, list: VariableValue<ListType<T>>) {
+fun <T: ValueType> ActionReceiver.listLength(variable: VariableValue<NumberType>, list: Value<ListType<T>>) {
     addAction("LIST_LENGTH", variable, list)
 }
 
